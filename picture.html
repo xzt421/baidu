@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>百度图片</title>
+		<link rel="icon" href="img/logo.ico" />
+	</head>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		
+		#box {
+			width: 100%;
+			padding: 10px;
+			margin: 0px auto;
+			text-align: center;
+			line-height: 50px;
+			background: #FFFFFF;
+			position: fixed;
+			top: 0px;
+			border-bottom: 1px solid #CCCCCC;
+		}
+		
+		#logo {
+			position: relative;
+			top: 10px;
+		}
+		
+		input {
+			width: 200px;
+			height: 25px;
+		}
+		
+		button {
+			padding: 6px 10px;
+			background: #3388FF;
+			border: none;
+			color: #FFFFFF;
+			cursor: pointer;
+			outline: none;
+		}
+		
+		button:hover {
+			background: #317EF3;
+		}
+		
+		#show {
+			width: 98%;
+			margin: 80px auto;
+		}
+		
+		#show a {
+			margin: 0px 2.5px;
+		}
+		
+		#show img {
+			width: 300px;
+			height: 200px;
+		}
+	</style>
+
+	<body>
+		<!--<img src="img/IMG_1026_看图王.jpg" width="100%" />
+		<img src="img/IMG_1071_看图王.jpg" width="100%" />-->
+		<div id="box">
+			<img src="img/logo.png" height="30px" id="logo" />
+			<input type="text" name="" id="" value="" />
+			<button>百度一下</button>
+		</div>
+		<div id="show">
+
+		</div>
+	</body>
+	<script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var n = 0
+		$("button").click(function() {
+			$("#show").html("")
+			$(document).scrollTop(0)
+			fn(n)
+		})
+
+		$(document).scroll(function() {
+			if($(document).height() - $(window).height() <= $(document).scrollTop()) {
+				n += 50
+				fn(n)
+			}
+		})
+
+		function fn(n) {
+			if($("input").val() !== "") {
+				$.ajax({
+					type: "get",
+					url: "https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=0&word=" + $("input").val() + "&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&pn=" + n + "&rn=" + 50,
+					async: true,
+					dataType: "jsonp"
+				}).done(function(data) {
+					for(var i = 0; i < data.data.length; i++) {
+						if(data.data[i].replaceUrl !== undefined) {
+							$("#show").html($("#show").html() + "<a href='" + data.data[i].replaceUrl[0].FromURL + "' title='" + data.data[i].fromPageTitleEnc +
+								"' target='_blank'><img src='" + data.data[i].thumbURL + "'/></a>")
+						}
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

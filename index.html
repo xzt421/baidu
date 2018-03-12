@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>百度一下，你就知道</title>
+		<link rel="icon" href="img/logo.ico" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+	</head>
+
+	<body>
+		<div class="main">
+			<ul class="nav">
+				<li>
+					<a href="">
+						新闻
+					</a>
+				</li>
+				<li>
+					<a href="">
+						hao123
+					</a>
+				</li>
+				<li>
+					<a href="">
+						地图
+					</a>
+				</li>
+				<li>
+					<a href="">
+						视频
+					</a>
+				</li>
+				<li>
+					<a href="">
+						贴吧
+					</a>
+				</li>
+				<li>
+					<a href="">
+						学术
+					</a>
+				</li>
+				<li>
+					<a href="">
+						登录
+					</a>
+				</li>
+				<li>
+					<a href="">
+						设置
+					</a>
+				</li>
+				<li class="last">
+					<a href="">
+						更多产品
+					</a>
+					<ul class="more">
+						<li>
+							<a href="">
+								<span class="nm">
+									<img src="img/gdcp.png" />
+								</span> 糯米
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="yy">
+									<img src="img/gdcp.png" />
+								</span> 音乐
+							</a>
+						</li>
+						<li>
+							<a href="picture.html">
+								<span class="tp">
+									<img src="img/gdcp.png" />
+								</span> 图片
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="zd">
+									<img src="img/gdcp.png" />
+								</span> 知道
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="wk">
+									<img src="img/gdcp.png" />
+								</span> 文库
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<span class="fyb">
+									<img src="img/gdcp.png" />
+								</span> 风云榜
+							</a>
+						</li>
+						<li>
+							<a href="" class="all">
+								全部产品>>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<img src="img/bd_logo1.png" />
+			<div>
+				<input type="text" name="serch" id="serch" value="" maxlength="25px" class="search" />
+				<button type="button" class="button">
+					<span></span>
+					百度一下
+				</button>
+				<div id="show">
+
+				</div>
+			</div>
+			<div id="ewm">
+				<img src="img/ewm.jpg" alt="" />
+				<br /> 支付宝扫码领红包！！
+			</div>
+		</div>
+	</body>
+	<script src="../jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//百度搜索
+		$("#serch").on("input", function() {
+			$.ajax({
+				type: "post",
+				url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + $("#serch").val(),
+				async: true,
+				dataType: "jsonp",
+				jsonp: "cb",
+				jsonpCallback: "callback"
+			}).done(function(data) {
+				$("#show").html("")
+				if($("#serch").val() !== "") {
+					for(var i = 0; i < data.s.length; i++) {
+						$("#show").css({
+							"top": "-2px",
+							"zIndex": "1"
+						})
+						$("#show").html($("#show").html() + "<a href='##'>" + data.s[i] + "</a>");
+						$("#show>a").eq(i).attr("href", "https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&rsv_idx=1&tn=baidu&wd=" + $("#show>a").eq(i).html())
+					}
+				} else if($("#serch").val() == "") {
+					$("#show").css({
+						"top": "-37px",
+						"zIndex": "-1"
+					})
+				}
+			});
+		})
+		$(".button").click(function() {
+			window.location = "https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&rsv_idx=1&tn=baidu&wd=" + $("#serch").val()
+		})
+		$(document).on("keydown", function(e) {
+			var e = e || event
+			if(e.keyCode == 13) {
+				window.location = "https://www.baidu.com/s?ie=utf-8&f=3&rsv_bp=1&rsv_idx=1&tn=baidu&wd=" + $("#serch").val()
+			}
+		})
+	</script>
+
+</html>
