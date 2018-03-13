@@ -12,6 +12,7 @@ li {
 	width: 100%;
 	height: 600px;
 	text-align: center;
+	position: relative;
 }
 
 .nav {
