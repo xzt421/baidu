@@ -199,11 +199,11 @@ li {
 #ewm{
 	font-size: 23px;
 	font-family: monospace;
-	margin-left: -128px;
    	position: absolute;
-    	top: 50%;
+    	top: 60%;
     	left: 50%;
+	margin-left: -75px;
 }
 #ewm img{
-	width: 256px;
+	width: 150px;
 }
