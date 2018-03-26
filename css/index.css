@@ -197,6 +197,8 @@ li {
 	background: #CCCCCC;
 }
 #ewm{
+	width:150px;
+	height:150px;
 	font-size: 23px;
 	font-family: monospace;
    	position: absolute;
@@ -205,5 +207,5 @@ li {
 	margin-left: -75px;
 }
 #ewm img{
-	width: 150px;
+	width: 100%;
 }
